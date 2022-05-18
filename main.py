@@ -8,8 +8,11 @@ from flask import Flask, request, jsonify, render_template
 from qiskit.algorithms import Shor
 from qiskit.utils import QuantumInstance
 import math
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def c_amod15(a, power):
     """Controlled multiplication by a mod 15"""
@@ -108,10 +111,12 @@ def algorithm(n):
         return d
 
 @app.route('/')
+@cross_origin()
 def home():
     return jsonify({'title': 'Api is working. Hello Tania!'})
 
 @app.route('/shor15')
+@cross_origin()
 def shor15():
     N = 15
     a = 7
@@ -138,6 +143,7 @@ def shor15():
     return jsonify({'res': guesses, 'time': end-start })
 
 @app.route('/shor')
+@cross_origin()
 def find_shor(): 
     backend = Aer.get_backend('aer_simulator')
     quantum_instance = QuantumInstance(backend, shots = 1000)
@@ -156,6 +162,7 @@ def find_shor():
     })
 
 @app.route('/simple')
+@cross_origin()
 def factorize():
     args = request.args
     x = int(args.get("number"))
@@ -177,6 +184,7 @@ def factorize():
     })
 
 @app.route('/pollard')
+@cross_origin()
 def pollard():
     args = request.args
     n = int(args.get("number"))
