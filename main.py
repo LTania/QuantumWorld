@@ -7,6 +7,7 @@ import time
 from flask import Flask, request, jsonify, render_template
 from qiskit.algorithms import Shor
 from qiskit.utils import QuantumInstance
+import math
 
 app = Flask(__name__)
 
@@ -74,6 +75,37 @@ def qpe_amod15(a):
     print("Corresponding Phase: %f" % phase)
     return phase
 
+def eratosthenes(n):
+    primes = []
+    limit = n
+    sieve = [True for i in range(limit + 1)]
+    a = 2
+    while a ** 2 <= limit:
+        if sieve[a] == True:
+            for b in range(a ** 2, limit + 1, a):
+                sieve[b] = False
+        a += 1
+    for a in range(2, limit + 1):
+        if sieve[a] == True:
+            primes.append(a)
+    return primes
+
+def polynomial(x, n):
+    return (x ** 2 - 1) % n
+
+def algorithm(n):
+    d = 1
+    x = 2
+    y = 2
+    while d == 1:
+        x = int(polynomial(x, n))
+        y = int(polynomial(polynomial(y, n), n))
+        d = math.gcd(int(abs(x - y)), n)
+
+    if d == n:
+        return "Done"
+    else:
+        return d
 
 @app.route('/')
 def home():
@@ -123,6 +155,53 @@ def find_shor():
         'time': end-start
     })
 
+@app.route('/simple')
+def factorize():
+    args = request.args
+    x = int(args.get("number"))
+    start = time.time()
+    primes = eratosthenes(x)
+    factors = []
+    while x != 1:
+        for i in primes:
+            if x % i == 0:
+                factors.append(i)
+                x = x / i
+                break
+            else:
+                pass 
+    end = time.time()
+    return jsonify({
+        'res': factors,
+        'time': end-start
+    })
+
+@app.route('/pollard')
+def pollard():
+    args = request.args
+    n = int(args.get("number"))
+    start = time.time()
+    factors = []
+    if algorithm(n) == "Done":
+        factors.append(n)
+    else:
+        first = int(algorithm(n))
+        factors.append(first)
+        check = n
+        while check / first != 1:
+            m = int(check / first)
+            next = algorithm(m)
+            if next == "Done":
+                factors.append(int(n / math.prod(factors)))
+                break
+            else:
+                factors.append(next)
+                check =  check / next
+    end = time.time()
+    return jsonify({
+        'res': factors,
+        'time': end-start
+    })
 
 
 if __name__ == "__main__":
