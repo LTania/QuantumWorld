@@ -15,7 +15,7 @@ export const getLastResult = createSelector(
 export const getShorSelector = createSelector(
     getState,
     (state) =>{
-        return state?.shor
+        return state?.shor ?? []
     }
 )
 
@@ -23,7 +23,7 @@ export const getShorSelector = createSelector(
 export const getShor15Selector = createSelector(
     getState,
     (state) =>{
-        return state?.shor15
+        return state?.shor15 ?? []
     }
 )
 
@@ -31,7 +31,7 @@ export const getShor15Selector = createSelector(
 export const getSimpleSelector = createSelector(
     getState,
     (state) =>{
-        return state?.simple
+        return state?.simple ?? []
     }
 )
 
@@ -39,6 +39,6 @@ export const getSimpleSelector = createSelector(
 export const getPollardSelector = createSelector(
     getState,
     (state) =>{
-        return state?.pollard
+        return state?.pollard ?? []
     }
 )

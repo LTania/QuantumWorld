@@ -1,4 +1,5 @@
 import {useDispatch} from "react-redux";
+import { IconNames } from '@blueprintjs/icons'
 import {Select} from "@blueprintjs/select";
 import {Button, MenuItem, NumericInput} from "@blueprintjs/core";
 import {useState} from "react";
@@ -78,7 +79,10 @@ export const SelectorComponent = () => {
                         itemRenderer={renderMenuItem}
                         onItemSelect={handleItemSelection}
                     >
-                        <Button text={`${algoType.name}`}/>
+                        <Button
+                            text={`${algoType.name}`}
+                            rightIcon={IconNames.CaretDown}
+                        />
                     </Select>
                 </div>
 
@@ -90,7 +94,10 @@ export const SelectorComponent = () => {
                         itemRenderer={renderMenuItem}
                         onItemSelect={handleItemSelection}
                     >
-                        <Button text={`${specificAlgo.name}`}/>
+                        <Button
+                            text={`${specificAlgo.name}`}
+                            rightIcon={IconNames.CaretDown}
+                        />
                     </Select>
                 </div>
 

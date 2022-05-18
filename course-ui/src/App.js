@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import store from "./store";
 import {ResultsComponent} from "./components/Results.component";
 import {SelectorComponent} from "./components/Selector.component";
+import {ChartsComponent} from "./components/Charts.component";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
               </div>
               <SelectorComponent/>
               <ResultsComponent/>
+              <ChartsComponent/>
           </div>
       </Provider>
   );
