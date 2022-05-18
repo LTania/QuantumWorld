@@ -1,0 +1,8 @@
+.select-container{
+    text-align: left;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}

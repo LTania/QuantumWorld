@@ -1,18 +1,19 @@
-import {useDispatch, useSelector} from "react-redux";
-import {getSimple} from "../store/algorithms.reducer";
-import {Button} from "@blueprintjs/core";
+import {useSelector} from "react-redux";
+import {getLastResult} from "../store/algorithms.selector";
 
 export const ResultsComponent = () => {
-    const algorithms = useSelector((state)=>state)
-    const dispatch = useDispatch()
-    console.log(algorithms)
+    const result = useSelector(getLastResult)
+
+    const renderResult = () => {
+        return (<>
+            {result?.res?.map((x, i)=><span key={i}>{x} </span>)}
+            </>)
+    }
+
     return (
-    <>
-        <p>тут рез </p>
-        <Button
-            intent="success"
-            text="button content"
-            onClick={()=>dispatch(getSimple(15))} />
-    </>
+    <div>
+        <p>Отриманий результат: {renderResult()}</p>
+        <p>Час: {result?.time}</p>
+    </div>
     )
 }
