@@ -42,19 +42,19 @@ export const AlgorithmsSlice = createSlice({
     },
     extraReducers: {
         [getShor.fulfilled]: (state, {payload}) => {
-            state.shor.push(payload?.time)
+            state.shor.push(payload)
             state.last_result = payload
         },
         [getShor15.fulfilled]: (state, {payload}) => {
-            state.shor15.push(payload?.time)
+            state.shor15.push(payload)
             state.last_result = payload
         },
         [getSimple.fulfilled]: (state, {payload}) => {
-            state.simple.push(payload?.time)
+            state.simple.push(payload)
             state.last_result = payload
         },
         [getPollard.fulfilled]: (state, {payload}) => {
-            state.pollard.push(payload?.time)
+            state.pollard.push(payload)
             state.last_result = payload
         }
     }
