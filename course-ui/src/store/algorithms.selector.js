@@ -42,3 +42,15 @@ export const getPollardSelector = createSelector(
         return state?.pollard?.map(({time}) => time ) ?? []
     }
 )
+
+export const getAllRunsToSaveSelector = createSelector(
+    getState,
+    (state) => {
+        return {
+            pollard: state?.pollard,
+            eratosfen: state?.simple,
+            shor: state?.shor,
+            shor15: state?.shor15
+        }
+    }
+)

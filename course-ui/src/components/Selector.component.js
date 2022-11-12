@@ -1,10 +1,12 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { IconNames } from '@blueprintjs/icons'
 import {Select} from "@blueprintjs/select";
 import {Button, MenuItem, NumericInput} from "@blueprintjs/core";
 import {useState} from "react";
 import {clearLastResult, getPollard, getShor, getShor15, getSimple} from "../store/algorithms.reducer";
 import './Selector.css'
+import {getAllRunsToSaveSelector} from "../store/algorithms.selector";
+import {saveDataToFile} from "../utils/saveFile";
 
 const items = [
     {id: 2, name: 'Класичні'},
@@ -26,6 +28,12 @@ export const SelectorComponent = () => {
     const [algoType, setAlgoType] = useState(items[0])
     const [specificAlgo, setSpecificAlgo] = useState(algoItems[algoType.id][0])
     const [factor, setFactor] = useState(15)
+    const dataToSave = useSelector(getAllRunsToSaveSelector)
+
+    const handleSaveClick = () => {
+        saveDataToFile(dataToSave)
+    }
+
 
     const handleAlgoRun = () => {
         dispatch(clearLastResult())
@@ -109,6 +117,11 @@ export const SelectorComponent = () => {
                     />
                 </div>
             </div>
+
+            <Button
+                text="Зберегти"
+                onClick={handleSaveClick}
+            />
 
             <Button
                 intent="success"
