@@ -31,14 +31,22 @@ export const ChartsComponent = () => {
             <LineChart width={730} height={250} data={chartData}
                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis dataKey="name" label={{
+                    value: "Номер досліду",
+                    offset: 0,
+                    position: "insideBottom"
+                }} />
+                    <YAxis label={{
+                        value: "Час, с",
+                        angle: -90,
+                        position: 'insideLeft'
+                    }}/>
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="Шор 15" stroke="#972678" />
                 <Line type="monotone" dataKey="Шор" stroke="#8884d8" />
-                <Line type="monotone" dataKey="Решето Ератосфена" stroke="#eae000" />
-                <Line type="monotone" dataKey="Поллард" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="Решето Ератосфена" stroke="#000C66" />
+                <Line type="monotone" dataKey="Поллард" stroke="#275935" />
             </LineChart>
         </div>
     )
