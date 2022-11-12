@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import { IconNames } from '@blueprintjs/icons'
 import {Select} from "@blueprintjs/select";
 import {Button, MenuItem, NumericInput} from "@blueprintjs/core";
@@ -12,8 +12,7 @@ import {
     saveImportedData
 } from "../store/algorithms.reducer";
 import './Selector.css'
-import {getAllRunsToSaveSelector} from "../store/algorithms.selector";
-import {QUANTUM_WORLD_CONFIG, saveDataToFile} from "../utils/saveFile";
+import {QUANTUM_WORLD_CONFIG} from "../utils/saveFile";
 import {FileUploadComponent} from "./FileUpload.component";
 
 const items = [
@@ -36,15 +35,10 @@ export const SelectorComponent = () => {
     const [algoType, setAlgoType] = useState(items[0])
     const [specificAlgo, setSpecificAlgo] = useState(algoItems[algoType.id][0])
     const [factor, setFactor] = useState(15)
-    const dataToSave = useSelector(getAllRunsToSaveSelector)
-
-    const handleSaveClick = () => {
-        saveDataToFile(dataToSave)
-    }
 
     const handleImport = (data) => {
-        const dataToSave = JSON.parse(data)
-        dispatch(saveImportedData(dataToSave))
+        const importedData = JSON.parse(data)
+        dispatch(saveImportedData(importedData))
     }
 
     const handleImportError = (error) => {
@@ -95,6 +89,16 @@ export const SelectorComponent = () => {
     }
     return (
         <>
+            <div className="file-upload-container">
+                <FileUploadComponent
+                    icon="import"
+                    onFulfilled={handleImport}
+                    onError={handleImportError}
+                    accept={ QUANTUM_WORLD_CONFIG.EXTENSION }
+                    text="Завантажити файл"
+                />
+            </div>
+
             <div className="select-container">
                 <div>
                     <h5>Оберіть тип алгоритму:</h5>
@@ -133,28 +137,15 @@ export const SelectorComponent = () => {
                         onValueChange={setFactor}
                     />
                 </div>
+
+                <div className="button-run">
+                    <Button
+                        intent="success"
+                        text="Запустити"
+                        onClick={handleAlgoRun}
+                    />
+                </div>
             </div>
-
-            <FileUploadComponent
-                icon="import"
-                onFulfilled={handleImport}
-                onError={handleImportError}
-                accept={ QUANTUM_WORLD_CONFIG.EXTENSION }
-                text="Завантажити файл"
-            />
-
-            <Button
-                icon="export"
-                text="Зберегти у файл"
-                onClick={handleSaveClick}
-            />
-
-            <Button
-                intent="success"
-                text="Запустити"
-                onClick={handleAlgoRun}
-            />
-
         </>
     )
 }

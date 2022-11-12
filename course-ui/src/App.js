@@ -5,6 +5,7 @@ import store from "./store";
 import {ResultsComponent} from "./components/Results.component";
 import {SelectorComponent} from "./components/Selector.component";
 import {ChartsComponent} from "./components/Charts.component";
+import {FileSaveComponent} from "./components/FileSave.component";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
               <SelectorComponent/>
               <ResultsComponent/>
               <ChartsComponent/>
+              <FileSaveComponent/>
           </div>
       </Provider>
   );
