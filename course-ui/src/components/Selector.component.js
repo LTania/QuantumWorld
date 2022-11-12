@@ -3,10 +3,18 @@ import { IconNames } from '@blueprintjs/icons'
 import {Select} from "@blueprintjs/select";
 import {Button, MenuItem, NumericInput} from "@blueprintjs/core";
 import {useState} from "react";
-import {clearLastResult, getPollard, getShor, getShor15, getSimple} from "../store/algorithms.reducer";
+import {
+    clearLastResult,
+    getPollard,
+    getShor,
+    getShor15,
+    getSimple,
+    saveImportedData
+} from "../store/algorithms.reducer";
 import './Selector.css'
 import {getAllRunsToSaveSelector} from "../store/algorithms.selector";
-import {saveDataToFile} from "../utils/saveFile";
+import {QUANTUM_WORLD_CONFIG, saveDataToFile} from "../utils/saveFile";
+import {FileUploadComponent} from "./FileUpload.component";
 
 const items = [
     {id: 2, name: 'Класичні'},
@@ -32,6 +40,15 @@ export const SelectorComponent = () => {
 
     const handleSaveClick = () => {
         saveDataToFile(dataToSave)
+    }
+
+    const handleImport = (data) => {
+        const dataToSave = JSON.parse(data)
+        dispatch(saveImportedData(dataToSave))
+    }
+
+    const handleImportError = (error) => {
+        console.log(error)
     }
 
 
@@ -118,8 +135,17 @@ export const SelectorComponent = () => {
                 </div>
             </div>
 
+            <FileUploadComponent
+                icon="import"
+                onFulfilled={handleImport}
+                onError={handleImportError}
+                accept={ QUANTUM_WORLD_CONFIG.EXTENSION }
+                text="Завантажити файл"
+            />
+
             <Button
-                text="Зберегти"
+                icon="export"
+                text="Зберегти у файл"
                 onClick={handleSaveClick}
             />
 
@@ -128,6 +154,7 @@ export const SelectorComponent = () => {
                 text="Запустити"
                 onClick={handleAlgoRun}
             />
+
         </>
     )
 }

@@ -36,8 +36,14 @@ export const AlgorithmsSlice = createSlice({
     name: 'algorithms',
     initialState,
     reducers: {
-        clear_last: (state, action) => {
+        clear_last: (state) => {
             state.last_result ={}
+        },
+        save_imported_data: (state, {payload}) => {
+            state.shor.push(...payload.shor)
+            state.shor15.push(...payload.shor)
+            state.pollard.push(...payload.pollard)
+            state.simple.push(...payload.eratosfen)
         }
     },
     extraReducers: {
@@ -62,3 +68,4 @@ export const AlgorithmsSlice = createSlice({
 )
 
 export const clearLastResult = AlgorithmsSlice.actions.clear_last
+export const saveImportedData = AlgorithmsSlice.actions.save_imported_data

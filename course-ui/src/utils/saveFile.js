@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver'
 
-const QUANTUM_WORLD_CONFIG = {
+export const QUANTUM_WORLD_CONFIG = {
     type: 'application/json',
     EXTENSION: '.qw_lnu'
 }
