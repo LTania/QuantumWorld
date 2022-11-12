@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 import { IconNames } from '@blueprintjs/icons'
 import {Select} from "@blueprintjs/select";
-import {Button, MenuItem, NumericInput} from "@blueprintjs/core";
+import {Button, MenuItem, NumericInput, Toast, Toaster} from "@blueprintjs/core";
 import {useState} from "react";
 import {
     clearLastResult,
@@ -36,13 +36,22 @@ export const SelectorComponent = () => {
     const [specificAlgo, setSpecificAlgo] = useState(algoItems[algoType.id][0])
     const [factor, setFactor] = useState(15)
 
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+
     const handleImport = (data) => {
         const importedData = JSON.parse(data)
         dispatch(saveImportedData(importedData))
+        setSuccess('Дані з файлу успішно завантажено')
     }
 
     const handleImportError = (error) => {
-        console.log(error)
+        setError(error)
+    }
+
+    const handleToastDissmis = () => {
+        setError('')
+        setSuccess('')
     }
 
 
@@ -89,6 +98,23 @@ export const SelectorComponent = () => {
     }
     return (
         <>
+            {(error || success) && <Toaster
+                position="top"
+                usePortal={false}
+            >
+                { error && <Toast
+                    intent="danger"
+                    message={`Cталася помилка під час прочитання файлу: ${error}`}
+                    onDismiss={handleToastDissmis}
+                />
+                }
+                { success && <Toast
+                    intent="success"
+                    message={`${success}`}
+                    onDismiss={handleToastDissmis}
+                />
+                }
+            </Toaster>}
             <div className="file-upload-container">
                 <FileUploadComponent
                     icon="import"
