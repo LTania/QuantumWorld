@@ -140,7 +140,11 @@ def shor15():
                 if guess not in [1,N] and (N % guess) == 0: # Check to see if guess is a factor
                     print("*** Non-trivial factor found: %i ***" % guess)
                     factor_found = True
-    return jsonify({'res': guesses, 'time': end-start })
+    return jsonify({
+        'num': 15,
+        'res': guesses, 
+        'time': end-start
+    })
 
 @app.route('/shor')
 @cross_origin()
@@ -157,6 +161,7 @@ def find_shor():
     print('number: ' + str(number) + ' and time: ' + str(end - start))
     print(f"The list of factors of {number} as computed by Shor's algorithm is {result.factors[0]}.")
     return jsonify({
+        'num': int(args.get("number")),
         'res': result.factors[0],
         'time': end-start
     })
@@ -179,6 +184,7 @@ def factorize():
                 pass 
     end = time.time()
     return jsonify({
+        'num': int(args.get("number")),
         'res': factors,
         'time': end-start
     })
@@ -207,6 +213,7 @@ def pollard():
                 check =  check / next
     end = time.time()
     return jsonify({
+        'num': int(args.get("number")),
         'res': factors,
         'time': end-start
     })
