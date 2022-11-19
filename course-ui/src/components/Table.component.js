@@ -32,7 +32,7 @@ export const TableComponent = () => {
                     number: index+1,
                     num,
                     name,
-                    time,
+                    time: time.toFixed(3),
                     res
                 }))
         })

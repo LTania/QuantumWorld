@@ -13,7 +13,7 @@ export const ResultsComponent = () => {
     return (
     <div>
         <p>Отриманий результат: {renderResult()}</p>
-        <p>Час: {result?.time}</p>
+        <p>Час: {(result?.time)?.toFixed(3)}</p>
     </div>
     )
 }
