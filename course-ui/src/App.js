@@ -6,6 +6,7 @@ import {ResultsComponent} from "./components/Results.component";
 import {SelectorComponent} from "./components/Selector.component";
 import {ChartsComponent} from "./components/Charts.component";
 import {FileSaveComponent} from "./components/FileSave.component";
+import {TableComponent} from "./components/Table.component";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <SelectorComponent/>
               <ResultsComponent/>
               <ChartsComponent/>
+              <TableComponent/>
               <FileSaveComponent/>
           </div>
       </Provider>
