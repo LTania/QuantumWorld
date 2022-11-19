@@ -43,10 +43,10 @@ export const ChartsComponent = () => {
                     }}/>
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="Шор 15" stroke="#972678" />
-                <Line type="monotone" dataKey="Шор" stroke="#8884d8" />
-                <Line type="monotone" dataKey="Решето Ератосфена" stroke="#000C66" />
-                <Line type="monotone" dataKey="Поллард" stroke="#275935" />
+                {shor15.length ? <Line type="monotone" dataKey="Шор 15" stroke="#972678" /> : null}
+                {shor.length ? <Line type="monotone" dataKey="Шор" stroke="#8884d8" /> : null }
+                {simple.length ? <Line type="monotone" dataKey="Решето Ератосфена" stroke="#000C66" /> : null}
+                {pollard.length ? <Line type="monotone" dataKey="Поллард" stroke="#275935" /> : null }
             </LineChart>
         </div>
     )
