@@ -7,3 +7,7 @@
 .table-res{
     margin: auto;
 }
+
+.res:last-of-type .comma{
+    display: none;
+}

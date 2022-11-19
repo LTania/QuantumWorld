@@ -28,8 +28,9 @@ export const TableComponent = () => {
     const dataArr = useMemo(()=>{
         return Object.entries(data).flatMap(([key, value])=>{
             const name = getNameByType(key)
-            return value.map(({time,res}, index) => ({
+            return value.map(({time,res, num}, index) => ({
                     number: index+1,
+                    num,
                     name,
                     time,
                     res
@@ -37,43 +38,43 @@ export const TableComponent = () => {
         })
     },[data])
 
-    const renderResult = (num) => {
+    const renderResult = (num, index, name) => {
         return (
-            <span>
+            <span className="res" key={`${num}.${index}.${name}`}>
                 { num }
-                <span>, </span>
+                <span className="comma">, </span>
             </span>
         )
     }
 
-    const renderRow = ({number,name,time,res}) => {
+    const renderRow = ({number,name,time,res,num}) => {
         return (
             <tr>
                 <td>{number}</td>
                 <td>{name}</td>
+                <td>{num}</td>
+                <td>{res.map((n, index)=>renderResult(n,index, name))}</td>
                 <td>{time}</td>
-                <td>{res.map(renderResult)}</td>
-                <td></td>
             </tr>
         )
     }
 
     return (
         <div className="table-container">
-            <HTMLTable className="table-res">
+            {dataArr.length ? <HTMLTable className="table-res">
                 <thead>
                 <tr>
                     <th>Номер</th>
                     <th>Алгоритм</th>
-                    <th>Час</th>
+                    <th>Число</th>
                     <th>Результати</th>
-                    <th></th>
+                    <th>Час</th>
                 </tr>
                 </thead>
                 <tbody>
                 {dataArr.map(renderRow)}
                 </tbody>
-            </HTMLTable>
+            </HTMLTable> : null}
         </div>
     )
 }
