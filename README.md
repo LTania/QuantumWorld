@@ -1,4 +1,4 @@
 # QuantumWorld
 
 main.py - серверна частина  <br />
-courseUi - клієнтська частина
+course-ui - клієнтська частина
